@@ -1,4 +1,101 @@
-// Content script that runs on all webpages
+// Slang dictionary
+const slangDictionary = {
+  'nvm': 'Never Mind',
+  'lol': 'Laugh Out Loud',
+  'oomf': 'One of My Friends',
+  'brb': 'Be Right Back',
+  'idk': 'I Don\'t Know',
+  'smh': 'Shaking My Head',
+  'btw': 'By The Way',
+  'omg': 'Oh My God',
+  'fyi': 'For Your Information',
+  'asap': 'As Soon As Possible',
+  'ttyl': 'Talk To You Later',
+  'bff': 'Best Friends Forever',
+  'jk': 'Just Kidding',
+  'imho': 'In My Humble Opinion',
+  'lmao': 'Laughing My Ass Off',
+  'rofl': 'Rolling On Floor Laughing',
+  'wtf': 'What The Fuck',
+  'fml': 'Fuck My Life',
+  'sry': 'Sorry',
+  'thx': 'Thanks',
+  'pls': 'Please',
+  'u': 'You',
+  'ur': 'Your/You\'re',
+  'b4': 'Before',
+  'gr8': 'Great',
+  'l8r': 'Later',
+  'asl': 'Age, Sex, Location',
+  'dw': 'Don\'t Worry',
+  'np': 'No Problem',
+  'imo': 'In My Opinion',
+  'afaik': 'As Far As I Know',
+  'idc': 'I Don\'t Care',
+  'nah': 'No',
+  'yep': 'Yes',
+  'yup': 'Yes',
+  'k': 'Okay',
+  'okurrr': 'Okay (extended)',
+  'sos': 'Someone Over Shoulder',
+  'ama': 'Ask Me Anything',
+  'tl;dr': 'Too Long; Didn\'t Read',
+  'ew': 'Eww/Disgusting',
+  'gj': 'Good Job',
+  'hbu': 'How About You',
+  'hmm': 'Thinking',
+  'msg': 'Message',
+  'rn': 'Right Now',
+  'rly': 'Really',
+  'ty': 'Thank You',
+  'yw': 'You\'re Welcome',
+  'bae': 'Before Anyone Else/Baby',
+  'lit': 'Exciting/Cool',
+  'fire': 'Awesome/Cool',
+  'sus': 'Suspicious',
+  'salty': 'Bitter/Upset',
+  'savage': 'Awesome/Bold',
+  'beast': 'Powerful/Skilled',
+  'noob': 'Newbie',
+  'pwn': 'Own/Dominate',
+  'fail': 'Failure',
+  'epic': 'Awesome',
+  'sick': 'Cool/Awesome',
+  'dope': 'Cool/Excellent',
+  'tight': 'Cool',
+  'cringe': 'Embarrassing',
+  'vibe': 'Feeling/Mood',
+  'slay': 'Doing Great/Impressive',
+  'lowkey': 'Secretly/Somewhat',
+  'highkey': 'Obviously/Very',
+  'flex': 'Show Off',
+  'simp': 'Someone Who Does Too Much For Another',
+  'bussin': 'Really Good',
+  'slaps': 'Is Really Good',
+  'hits': 'Is Really Good',
+  'drip': 'Style/Fashion',
+  'vibe check': 'Assess Someone\'s Mood/Personality'
+};
+
+// Listen for keyboard shortcut (Ctrl+M) to show meaning
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && e.key === 'm') {
+    e.preventDefault();
+    const selectedText = window.getSelection().toString().trim().toLowerCase();
+    
+    if (selectedText) {
+      const meaning = slangDictionary[selectedText];
+      
+      if (meaning) {
+        showMeaningPopup(selectedText, meaning);
+      } else {
+        showErrorPopup(`"${selectedText}" not found in Slang Decoder database.`);
+      }
+    }
+  }
+});
+
+// Listen for messages from background script (right-click context menu)
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'showSlangMeaning') {
     showMeaningPopup(request.slang, request.meaning);
@@ -37,14 +134,14 @@ function showMeaningPopup(slang, meaning) {
         transform: translate(-50%, -50%);
         z-index: 999999;
         background: white;
-        border: 2px solid #4CAF50;
+        border: 2px solid #26872aff;
         border-radius: 8px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         animation: slideIn 0.3s ease-out;
       }
 
       .slang-decoder-content {
-        padding: 20px;
+        padding: 20px 40px;
         font-family: Arial, sans-serif;
       }
 
@@ -152,7 +249,7 @@ function showErrorPopup(message) {
       }
 
       .slang-decoder-error-content {
-        padding: 20px;
+        padding: 20px 40px;
         font-family: Arial, sans-serif;
       }
 
