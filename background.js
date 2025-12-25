@@ -100,12 +100,16 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         action: 'showSlangMeaning',
         slang: selectedText,
         meaning: meaning
+      }).catch((error) => {
+        console.log('Content script not available on this page');
       });
     } else {
       // Slang not found
       chrome.tabs.sendMessage(tab.id, {
         action: 'showError',
         message: `"${selectedText}" not found in Slang Decoder database.`
+      }).catch((error) => {
+        console.log('Content script not available on this page');
       });
     }
   }
