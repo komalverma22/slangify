@@ -1,6 +1,3 @@
-// Slang dictionary
-
-// Listen for keyboard shortcut (Ctrl+M) to show meaning
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.key === 'm') {
     e.preventDefault();
@@ -18,7 +15,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Listen for messages from background script (right-click context menu)
+// right-click
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'showSlangMeaning') {
     showMeaningPopup(request.slang, request.meaning);

@@ -1,6 +1,5 @@
-// Slang dictionary
+// all slangs
 const slangDictionary = {
-  // Common internet slang
   'nvm': 'Never Mind',
   'lol': 'Laugh Out Loud',
   'oomf': 'One of My Friends',
@@ -81,11 +80,13 @@ const slangDictionary = {
   'vibe check': 'Assess Someone\'s Mood/Personality'
 };
 
-// Create context menu
-chrome.contextMenus.create({
-  id: 'showSlangMeaning',
-  title: 'Show Meaning',
-  contexts: ['selection']
+// Create context menu on install/update
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.contextMenus.create({
+    id: 'showSlangMeaning',
+    title: 'Show Meaning',
+    contexts: ['selection']
+  });
 });
 
 // Handle context menu click
@@ -104,7 +105,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         console.log('Content script not available on this page');
       });
     } else {
-      // Slang not found
+      // Slang not found-error
       chrome.tabs.sendMessage(tab.id, {
         action: 'showError',
         message: `"${selectedText}" not found in Slang Decoder database.`
