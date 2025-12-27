@@ -8,6 +8,7 @@ const slangDictionary = {
   'smh': 'Shaking My Head',
   'btw': 'By The Way',
   'omg': 'Oh My God',
+  'loml':'love of my life',
   'fyi': 'For Your Information',
   'asap': 'As Soon As Possible',
   'ttyl': 'Talk To You Later',
